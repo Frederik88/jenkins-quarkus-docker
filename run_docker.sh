@@ -1,0 +1,1 @@
+docker run -it -p 8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password jenkins:quarkus
