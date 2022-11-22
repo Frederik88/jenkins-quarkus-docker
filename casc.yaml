@@ -1,0 +1,40 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: triggeringUsersAuthorizationStrategy
+tool:
+  jdk:
+    installations:
+      - name: graalvm
+        home: /opt/java/graalvm-ce-java11-22.3.0
+jobs:
+  - script: >
+      multibranchPipelineJob('quarkus') {
+        branchSources {
+          git {
+            id('123456789') // IMPORTANT: use a constant and unique identifier
+            remote('https://github.com/Frederik88/quarkus.git')
+          } 
+        }
+        orphanedItemStrategy {
+          discardOldItems {
+              numToKeep(20)
+          }
+        }
+      }
+unclassified:
+  location:
+    url: http://localhost:8080/
