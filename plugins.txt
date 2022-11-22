@@ -3,7 +3,9 @@ antisamy-markup-formatter:latest
 build-timeout:latest
 cloudbees-folder:latest
 configuration-as-code:latest
+authorize-project:latest
 credentials-binding:latest
+job-dsl:latest
 email-ext:latest
 git:latest
 github-branch-source:latest
